@@ -1,22 +1,22 @@
 { lib, fetchFromGitHub
-, python3, python3Packages
+, python38, python38Packages
 }:
 
 let
-  deps = with python3Packages; [
-    sympy numpy pint django_1_11 mpmath dateutil colorama
+  deps = with python38Packages; [
+    graphviz pydot palettable sympy numpy pint django_1_11 mpmath dateutil colorama setuptools packaging
   ];
-  pythonEnv = python3.withPackages (p: deps);
+  pythonEnv = python38.withPackages (p: deps);
 in
-  python3Packages.buildPythonApplication rec {
+  python38Packages.buildPythonApplication rec {
     pname = "mathics";
-    version = "1.0";
+    version = "1.1-rc0";
 
     src = fetchFromGitHub {
       owner = "mathics";
       repo = "Mathics";
-      rev = "0f2049586db6d42d6ae372afd6d65c4b6ddc883d";
-      sha256 = "18v2yspvf7cjm30k4d9gv3d7d4nhp53rxlhxcwbiy3g4zf32b4zg";
+      rev = "c1c38ad824da006c529699ac4d3ca7ad1eb97c3c";
+      sha256 = "0lg47n6czji2kg54k0cs2czczxr7hys190m27w3wir2nb8wzirgd";
     };
 
     propagatedBuildInputs = deps;
@@ -35,9 +35,9 @@ in
       done
     '';
 
-    disabled = !python3Packages.isPy3k;
+    disabled = !python38Packages.isPy3k;
     meta = {
-      broken = true;
+      broken = false;
 
       description = "A free, light-weight alternative to Mathematica";
       homepage = https://mathics.github.io/;
